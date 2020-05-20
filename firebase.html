@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- google api add -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Google Maps</title>
+</head>
+
+<body onload="LoadProc()">
+    <container id="container">
+
+        <!-- <h1>Form</h1>
+        <div id="formContainer">
+            <div id="header"></div>
+            <input type="email" placeholder="email" id="email">
+            <input type="password" placeholder="password" id="password">
+            <button onclick="signUp()" id="signUp"> Sign Up </button>
+            <button onclick="signIn()" id="signIn"> Sign In </button>
+            <button onclick="signOut()" id="signOut"> Sign Out </button>
+        </div> -->
+
+
+
+        <!-- <div id="firebaseui-auth-container"></div>
+        <div id="loader">Loading...</div> -->
+        <!-- サインイン -->
+        <!-- <section id="section_signin">
+            <button id="sign_in" onclick="signin()">
+                Sign in with Facebook
+            </button>
+
+            <div id="profile-pic"></div>
+            <div id="user-email"></div>
+            <div id="display-name"></div>
+        </section> -->
+
+        <section>
+            <h1>Map</h1>
+            <select id="type">
+                <option value="ROADMAP">ROADMAP</option>
+                <option value="SATELLITE">SATELLITE</option>
+                <option value="HYBRID">HYBRID</option>
+                <option value="TERRAIN">TERRAIN</option>
+            </select>
+
+            <div id="map"></div>
+
+        </section>
+        <!-- チャット -->
+        <section>
+            <h1>Chat</h1>
+            <div>
+                <div>名前： <input type="text" id="uname"></div>
+                <div id="nowDate"></div>
+                <div>
+                    <textarea id="text" cols="30" rows="10"></textarea>
+                    <button id="send"><i class="far fa-paper-plane"></i></button>
+                </div>
+                <div id="output"></div>
+            </div>
+        </section>
+        <!-- マップ -->
+        <!-- skyway -->
+        <section>
+            <div class="container">
+                <h1 class="heading">Room</h1>
+                <p class="note" style="display: none;">
+                    Change Room mode (before join in a room):
+                    <a href="#">mesh</a> / <a href="#sfu">sfu</a>
+                </p>
+                <div class="room">
+                    <div>
+                        <video id="js-local-stream"></video>
+                        <p>
+                            <span id="js-room-mode" style="display: none;"></span>
+                            <input type="text" placeholder="Room Name" id="js-room-id">
+                            <button id="js-join-trigger">Join</button>
+                            <button id="js-leave-trigger">Leave</button>
+                        </p>
+                    </div>
+                    <div class="remote-streams" id="js-remote-streams"></div>
+                    <div>
+                        <pre class="messages" id="js-messages"></pre>
+                        <input type="text" id="js-local-text">
+                        <button id="js-send-trigger">Send</button>
+                    </div>
+                </div>
+                <p class="meta" id="js-meta" style="display: none;"></p>
+            </div>
+        </section>
+
+    </container>
+    <script src="js/skyway.js"></script>
+    <script src="js/facebook.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/firebase.js"></script>
+</body>
+
+</html>

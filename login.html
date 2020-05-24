@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>OUR HOME</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- FontAwesome5 -->
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth__ja.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <section id="leftDisplay">
+        <div id="leftContainer">
+            <div id="leftTitle">
+                <h2>Welcome To</h2>
+                <h1>Our Home</h1>
+                <h3>Log in to get in the moment updates on the things <br>that interest you</h3>
+            </div>
+            <form id="login_form">
+                <div id="mail_box">
+                    <input id="loginEmail" type="mailAddress" placeholder="  Email" required />
+                </div>
+                <div id="password_box">
+                    <input id="loginPassword" type="password" placeholder=" Password" required />
+                </div>
+                <div>
+                    <button id="signin">Sign In</button>
+                </div>
+            </form>
+            <form id="signup_form">
+                <p>Don't you have an account ? <a id="signupText" href="#">Sign Up Now</a></p>
+                <div class="input-field">
+                    <input id="signupEmail" type="email" placeholder=" Email" required />
+                </div>
+                <div class="input-field">
+                    <input id="signupPassword" type="password" placeholder=" Passwaord" required />
+                </div>
+                <div>
+                    <button id="signup">Sign up</button>
+                </div>
+                <div>
+                    <button id="logout">Log out</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script>
+
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCfs6Ha3xt7UwbkWf4FwHvt07o72dcQjkc",
+            authDomain: "peerless-list-267710.firebaseapp.com",
+            databaseURL: "https://peerless-list-267710.firebaseio.com",
+            projectId: "peerless-list-267710",
+            // storageBucket: "peerless-list-267710.appspot.com",
+            // messagingSenderId: "802585049511",
+            // appId: "1:802585049511:web:1e8f02c5c73c0f1a869e82"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        //make auth and firestore referemces
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // update firestore settings
+        // db.settings({
+        //     timestampsInSnapshots: true
+        // });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/auth.js"></script>
+</body>
+
+</html>

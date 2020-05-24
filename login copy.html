@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>OUR HOME</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- FontAwesome5 -->
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth__ja.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <section id="leftDisplay">
+        <div id="leftContainer">
+            <div id="leftTitle">
+                <h2>Welcome To</h2>
+                <h1>Our Home</h1>
+                <h3>Log in to get in the moment updates on the things <br>that interest you</h3>
+            </div>
+            <div id="mail_box">
+                <input id="mailAddress" type="mailAddress" placeholder="  Email" required />
+            </div>
+            <div id="password_box">
+                <input id="password" type="password" placeholder=" Passwaord" required />
+            </div>
+            <div>
+                <button id="signin">Sign In</button>
+            </div>
+            <p id="siginText">Don't you have an account ? <a id="sigup" href="#">Sign Up Now</a></p>
+            <button class="authBtn" disabled>LogIn</button>
+            <span class="userId"></span>
+        </div>
+    </section>
+    <script src="js/config.js"></script>
+    <script>
+        var AuthUI = {
+            init: function () {
+                AuthUI.provider = new firebase.auth.GoogleAuthProvider();
+                AuthUI.elAuthBtn = document.querySelector('.authBtn');
+                AuthUI.elUserId = document.querySelector('.userId');
+                AuthUI.draw();
+                AuthUI.elAuthBtn.addEventListener('click', function () {
+                    AuthUI.doAuth();
+                });
+                firebase.auth().getRedirectResult().then(function (result) {
+                    AuthUI.elAuthBtn.disabled = false;
+                    if (result.credential) {
+                        // This gives you a Google Access Token. You can use it to access the Google API.
+                        var token = result.credential.accessToken;
+                    }
+                    if (result.user) {
+                        AuthUI.data.authed = true;
+                        AuthUI.data.userId = result.user.email;
+                        AuthUI.draw();
+                    }
+                }).catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // The email of the user's account used.
+                    var email = error.email;
+                    // The firebase.auth.AuthCredential type that was used.
+                    var credential = error.credential;
+                    // ...
+                });
+            },
+            data: {
+                authed: false,
+                userId: '',
+                info: ''
+            },
+            draw: function () {
+                AuthUI.elAuthBtn.textContent = AuthUI.data.authed ? 'LOGOUT' : 'LOGIN';
+                AuthUI.elUserId.textContent = AuthUI.data.userId;
+            },
+            doAuth: function () {
+                if (AuthUI.data.authed) {
+                    firebase.auth().signOut().then(function () {
+                        AuthUI.data.authed = false;
+                        AuthUI.data.userId = '';
+                        AuthUI.draw();
+                    }, function (error) {
+                        // An error happened.
+                    });
+                } else {
+                    firebase.auth().signInWithRedirect(AuthUI.provider);
+                }
+            }
+        };
+        AuthUI.init();
+    </script>
+    <script>
+        //新規登録処理
+        register.addEventListener('click', function (e) {
+            var mailAddress = document.getElementById('mailAddress').value;
+            var password = document.getElementById('password').value;
+
+
+            firebase.auth().createUserWithEmailAndPassword(mailAddress, password)
+                .catch(function (error) {
+                    if ()
+                        alert('登録できません（' + error.message + '）');
+                });
+        });
+        //認証状態の確認
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                //ログイン状態
+                alert("ログインに成功しました");
+            } else {
+                //ログアウト状態
+            }
+        });
+        //ログイン処理
+        // login.addEventListener("click", function (e) {
+        //     let mailAddress = document.querySelector("#mailAdress").value;
+        //     let password = document.querySelector("#password").value;
+
+
+        // })
+    </script>
+    <script>
+        //----------------------------------------------
+        // Firebase UIの設定
+        //----------------------------------------------
+        var uiConfig = {
+            // ログイン完了時のリダイレクト先
+            signInSuccessUrl: '/done.html',
+
+            // 利用する認証機能
+            signInOptions: [
+                firebase.auth.EmailAuthProvider.PROVIDER_ID //メール認証
+            ],
+
+            // 利用規約のURL(任意で設定)
+            tosUrl: 'http://example.com/kiyaku/',
+            // プライバシーポリシーのURL(任意で設定)
+            privacyPolicyUrl: 'http://example.com/privacy'
+        };
+
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+</body>
+
+</html>
